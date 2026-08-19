@@ -1,0 +1,44 @@
+---
+import { all } from '../../data/books.js';
+
+export function getStaticPaths() {
+  return all.map(b => ({ params: { slug: b.slug }, props: b }));
+}
+const { title, author, summary } = Astro.props;
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} - 拆书沉浮</title>
+    <style>
+      :root { --bg:#fafafa; --fg:#1f2937; --accent:#7c3aed; --muted:#6b7280; }
+      * { box-sizing:border-box; }
+      body { margin:0; background:var(--bg); color:var(--fg); font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; line-height:1.8; }
+      header { border-bottom:1px solid #e5e7eb; padding:20px 24px; background:#fff; }
+      .wrap { max-width:780px; margin:0 auto; padding:0 20px; }
+      .back { color:var(--accent); text-decoration:none; font-size:.9rem; }
+      h1 { font-size:1.8rem; margin:16px 0 6px; }
+      .meta { color:var(--muted); font-size:.9rem; margin-bottom:8px; }
+      article { padding:32px 0; }
+      footer { border-top:1px solid #e5e7eb; padding:20px; text-align:center; color:#9ca3af; font-size:.85rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <a class="back" href="/">&larr; 返回全部</a>
+        <h1>{title}</h1>
+        <div class="meta">{author}</div>
+        <p style="color:var(--muted)">{summary}</p>
+      </div>
+    </header>
+    <article class="wrap">
+      <p style="color:#9ca3af;font-size:.9rem">
+        完整拆书笔记已归档。此页为目录入口，正文接入中。
+      </p>
+    </article>
+    <footer>© Levi · 拆书沉浮</footer>
+  </body>
+</html>

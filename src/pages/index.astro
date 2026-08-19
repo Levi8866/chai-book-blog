@@ -1,0 +1,51 @@
+---
+const books = await import('../data/books.js').catch(() => ({ all: [] }));
+const list = Array.isArray(books.all) ? books.all : [];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="利维的拆书笔记与认知漫游" />
+    <title>拆书沉浮 - 认知策展</title>
+    <style>
+      :root { --bg:#fafafa; --fg:#1f2937; --accent:#7c3aed; --muted:#6b7280; }
+      * { box-sizing:border-box; }
+      body { margin:0; background:var(--bg); color:var(--fg); font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; line-height:1.7; }
+      header { border-bottom:1px solid #e5e7eb; padding:24px; background:#fff; }
+      .wrap { max-width:780px; margin:0 auto; padding:0 20px; }
+      h1 { font-size:1.6rem; margin:8px 0 4px; }
+      .tagline { color:var(--muted); margin:0 0 12px; }
+      main { padding:32px 20px; }
+      .book-card { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:20px 24px; margin-bottom:18px; transition:box-shadow .2s; }
+      .book-card:hover { box-shadow:0 4px 14px rgba(0,0,0,.06); }
+      .book-card h2 { margin:0 0 6px; font-size:1.15rem; }
+      .book-card h2 a { color:var(--fg); text-decoration:none; }
+      .book-card h2 a:hover { color:var(--accent); }
+      .book-card p { margin:0; color:var(--muted); font-size:.95rem; }
+      .meta { color:#9ca3af; font-size:.82rem; margin-top:8px; }
+      footer { border-top:1px solid #e5e7eb; padding:20px; text-align:center; color:#9ca3af; font-size:.85rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <h1>拆书沉浮</h1>
+        <p class="tagline">认知策展 · 把书里的东西变成自己的</p>
+      </div>
+    </header>
+    <main class="wrap">
+      <p style="color:var(--muted)">共 {list.length} 篇拆书笔记</p>
+      {list.map(b => (
+        <article class="book-card">
+          <h2><a href={'/books/' + b.slug + '/'}>{b.title}</a></h2>
+          <p>{b.summary}</p>
+          <div class="meta">{b.author || ''} · 整理于 {b.date || ''}</div>
+        </article>
+      ))}
+    </main>
+    <footer>© Levi · 拆书沉浮 · Cloudflare Pages</footer>
+  </body>
+</html>
